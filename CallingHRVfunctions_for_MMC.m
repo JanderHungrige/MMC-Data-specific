@@ -180,7 +180,21 @@ end
     %% ************ Creating spectrum for ECG-Signal **************         
        [powerspectrum,f]=Lomb_scargel_single(RR_300,RR_idx_300,t_300,Neonate,saving,savefolderHRVfreq,win) ;
         disp('* Periodogram calculated')
-
+        
+    %%  ************ AGE & Weight **************    
+    for k=1:length(RR)
+        Birthweight{k}=Pat_weight(I);
+        GA{k}=Pat_GA(I); 
+        CA{k}=Pat_CA(I);
+        Age_diff{k}=Pat_GACA(I);
+    end
+    if saving
+        Saving(Birthweight,savefolderAGEWEight, Neonate, win)
+        Saving(GA,savefolderAGEWEight, Neonate, win)
+        Saving(CA,savefolderAGEWEight, Neonate, win)
+        Saving(Age_diff,savefolderAGEWEight, Neonate, win)        
+        disp('* Age and Weight saved')
+    end  
         
     %% ************ CALCULATE FEATURES **************
     %%%%%%%% FULL SIGNALS 
@@ -243,7 +257,8 @@ end
           disp('- LepelZiv ECG finished')         
         LempelZivRR(RR_300,Neonate,saving,savefolderHRVnonlin,win,Sessions(S,1).name,S);
           disp('- LepelZiv HRV finished')   
-
+        LempelZivEDR(EDR_300,Neonate,saving,savefolderHRVnonlin,win,Sessions(S,1).name,S);
+          disp('- LepelZiv HRV finished')  
 
         clearvars ECG_win_300 ECG_win_30 t_ECG_300 t_ECG_30 RR_idx_300 RR_300 RR_idx_30 RR_30 powerspectrum f
         

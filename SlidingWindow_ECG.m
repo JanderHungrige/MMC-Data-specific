@@ -32,7 +32,6 @@ if exist('ECG','var') == 1
         ECG_win_300{1,m}=ECG(k:k+Fenster-1,1); 
         t_300{1,m}=t_ECG(k:k+Fenster-1,1);
        elseif k+Fenster>=length(ECG) && win_jumps<=uebrig && k>win_jumps*(Fenster-(uebrig/win_jumps)*win_jumps)/win_jumps
-%            uebrig=(k+Fenster)-length(ECG);  % how many minutes are left           
            rechts=uebrig/win_jumps;% How many epochs are still left 
            links=(Fenster-rechts*win_jumps)/win_jumps; % how many epochs do we have to atache from the left to get a full 300s window
            ECG_win_300{1,m}=ECG(k-win_jumps*links:k+win_jumps*rechts,1);
@@ -52,6 +51,8 @@ if exist('ECG','var') == 1
        m=m+1;
    end
 end
+
+
 
 %original&&&&&&&&&&&&&&&&&&&&&&&&& 
 %WOrks but does not have same cel size at
